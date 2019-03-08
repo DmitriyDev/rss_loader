@@ -1,2 +1,5 @@
 # rss_loader
-RSS loader
+
+Loads data from the website DZone.com
+
+All settings are locate in config.yml
