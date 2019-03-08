@@ -1,0 +1,64 @@
+target_website: http://feeds.dzone.com/
+store_folder: stored
+async: false
+streams:
+  ai:
+    name: AI Zone
+    description: Latest articles from AI Zone
+    code: ai
+  agile:
+    name: Agile Zone
+    description: Latest articles from Agile Zone
+    code: agile
+  big_data:
+    name: Big Data Zone
+    description: Latest articles from Big Data Zone
+    code: big-data
+  cloud:
+    name: Cloud Zone
+    description: Latest articles from Cloud Zone
+    code: cloud
+  database:
+    name: Database Zone
+    description: Latest articles from Database Zone
+    code: database
+  devops:
+    name: DevOps Zone
+    description: Latest articles from DevOps Zone
+    code: devops
+  integration:
+    name: Integration Zone
+    description: Latest articles from Integration Zone
+    code: integration
+  iot:
+    name: IoT Zone
+    description: Latest articles from IoT Zone
+    code: iot
+  java:
+    name: Java Zone
+    description: Latest articles from Java Zone
+    code: java
+  microservices:
+    name: Microservices Zone
+    description: Latest articles from Microservices Zone
+    code: microservices
+  mobile:
+    name: Mobile Zone
+    description: Latest articles from Mobile Zone
+    code: mobile
+  performance:
+    name: Performance Zone
+    description: Latest articles from Performance Zone
+    code: performance
+  security:
+    name: Security Zone
+    description: Latest articles from Security Zone
+    code: security
+  webdev:
+    name: Web Dev Zone
+    description: Latest articles from Web Dev Zone
+    code: webdev
+  developer-marketing:
+    name: Developer Marketing Zone
+    description: Latest articles from Developer Marketing Zone
+    code: developer-marketing
