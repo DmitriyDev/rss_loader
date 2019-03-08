@@ -1,33 +1,31 @@
 package main
 
-import "fmt"
-
 type AsyncRssReader struct {
 	config       Config
 	communicator Communicator
-	storage      Storage
 }
 
-func (arr *AsyncRssReader) read(streams map[string]RssStream) {
+func (arr *AsyncRssReader) contentOfStreams(streams map[string]RssStream) []StreamContent {
 
-	ch := make(chan RssStream)
+	var steamContents []StreamContent
+	ch := make(chan StreamContent)
 
 	for _, stream := range streams {
 		go arr.asyncRead(stream, ch)
 	}
 
 	for _ = range streams {
-		stream := <-ch
-		fmt.Println(stream.Name + "\t\t\t.... Done")
+		streamContent := <-ch
+		steamContents = append(steamContents, streamContent)
 	}
 
+	return steamContents
 }
 
-func (arr *AsyncRssReader) asyncRead(stream RssStream, ch chan RssStream) {
+func (arr *AsyncRssReader) asyncRead(stream RssStream, ch chan StreamContent) {
 
 	streamUrl := stream.getUrl(arr.config)
 	content := arr.communicator.content(streamUrl)
-	go arr.storage.save(stream.Code, content)
-	ch <- stream
+	ch <- StreamContent{stream, content}
 
 }

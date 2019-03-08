@@ -1,20 +1,20 @@
 package main
 
-import "fmt"
-
 type SyncRssReader struct {
 	config       Config
 	communicator Communicator
-	storage      Storage
 }
 
-func (srr *SyncRssReader) read(streams map[string]RssStream) {
+func (srr *SyncRssReader) contentOfStreams(streams map[string]RssStream) []StreamContent {
+
+	var streamsContent []StreamContent
 
 	for _, stream := range streams {
 		content := srr.syncRead(stream)
-		srr.storage.save(stream.Code, content)
-		fmt.Println(stream.Name + "\t\t\t.... Done")
+		streamsContent = append(streamsContent, StreamContent{stream, content})
 	}
+
+	return streamsContent
 }
 
 func (srr *SyncRssReader) syncRead(stream RssStream) string {
