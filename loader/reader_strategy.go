@@ -1,4 +1,4 @@
-package rss_loader
+package loader
 
 import "fmt"
 

@@ -1,4 +1,4 @@
-package rss_loader
+package loader
 
 type AsyncScenario struct {
 	communicator Communicator

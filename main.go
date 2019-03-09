@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"time"
-	lr "github.com/rss_loader"
+	"github.com/DmitriyDev/rss_loader/loader"
 )
 
 const CONFIG_FILE = "/config.yml"
