@@ -3,40 +3,46 @@ package main
 import "fmt"
 
 type RssReaderStrategy struct {
-	config       Config
 	communicator Communicator
+}
+
+type Scenario interface {
+	contentOfStreams(streams map[string]RssStream) []StreamContent
+}
+
+type StreamContent struct {
+	stream  RssStream
+	content string
 }
 
 func (r *RssReaderStrategy) contentOfStreams() []StreamContent {
 
-	var readScenario RssReader
+	var readScenario Scenario
 
-	if r.config.Async {
-		readScenario = r.asyncReader()
+	if globalConfig.Async {
+		readScenario = r.asyncScenario()
 	} else {
-		readScenario = r.syncReader()
+		readScenario = r.syncScenario()
 	}
 
-	return readScenario.contentOfStreams(r.config.Streams)
+	return readScenario.contentOfStreams(globalConfig.Streams)
 }
 
-func (r *RssReaderStrategy) syncReader() *SyncRssReader {
+func (r *RssReaderStrategy) syncScenario() *SyncScenario {
 
-	fmt.Println("Syncroniouse request")
+	fmt.Println("Sync mode")
 
-	return &SyncRssReader{
-		config:       r.config,
+	return &SyncScenario{
 		communicator: r.communicator,
 	}
 
 }
 
-func (r *RssReaderStrategy) asyncReader() *AsyncRssReader {
+func (r *RssReaderStrategy) asyncScenario() *AsyncScenario {
 
-	fmt.Println("Asyncroniouse request")
+	fmt.Println("Async mode")
 
-	return &AsyncRssReader{
-		config:       r.config,
+	return &AsyncScenario{
 		communicator: r.communicator,
 	}
 

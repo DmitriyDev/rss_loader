@@ -1,11 +1,10 @@
 package main
 
-type SyncRssReader struct {
-	config       Config
+type SyncScenario struct {
 	communicator Communicator
 }
 
-func (srr *SyncRssReader) contentOfStreams(streams map[string]RssStream) []StreamContent {
+func (srr *SyncScenario) contentOfStreams(streams map[string]RssStream) []StreamContent {
 
 	var streamsContent []StreamContent
 
@@ -17,9 +16,9 @@ func (srr *SyncRssReader) contentOfStreams(streams map[string]RssStream) []Strea
 	return streamsContent
 }
 
-func (srr *SyncRssReader) syncRead(stream RssStream) string {
+func (srr *SyncScenario) syncRead(stream RssStream) string {
 
-	streamUrl := stream.getUrl(srr.config)
+	streamUrl := stream.getUrl()
 	content := srr.communicator.content(streamUrl)
 	return content
 }

@@ -8,14 +8,13 @@ import (
 
 type Communicator interface {
 	content(streamUrl string) string
-	responseBody(resp *http.Response) string
 }
 
 type DZoneCommunicator struct {
 	config Config
 }
 
-func (c DZoneCommunicator) content(streamUrl string) string {
+func (dzc DZoneCommunicator) content(streamUrl string) string {
 
 	response, err := http.Get(streamUrl)
 
@@ -23,12 +22,8 @@ func (c DZoneCommunicator) content(streamUrl string) string {
 		log.Fatal(err)
 	}
 
-	return c.responseBody(response)
-}
-
-func (c DZoneCommunicator) responseBody(resp *http.Response) string {
-	body, err := ioutil.ReadAll(resp.Body)
-	resp.Body.Close()
+	body, err := ioutil.ReadAll(response.Body)
+	response.Body.Close()
 
 	if err != nil {
 		log.Fatal(err)

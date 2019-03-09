@@ -1,6 +1,7 @@
 target_website: http://feeds.dzone.com/
 store_folder: stored
 async: true
+abs_path: true
 streams:
   ai:
     name: AI Zone

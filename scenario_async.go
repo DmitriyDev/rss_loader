@@ -1,11 +1,10 @@
 package main
 
-type AsyncRssReader struct {
-	config       Config
+type AsyncScenario struct {
 	communicator Communicator
 }
 
-func (arr *AsyncRssReader) contentOfStreams(streams map[string]RssStream) []StreamContent {
+func (arr *AsyncScenario) contentOfStreams(streams map[string]RssStream) []StreamContent {
 
 	var steamContents []StreamContent
 	ch := make(chan StreamContent)
@@ -22,9 +21,9 @@ func (arr *AsyncRssReader) contentOfStreams(streams map[string]RssStream) []Stre
 	return steamContents
 }
 
-func (arr *AsyncRssReader) asyncRead(stream RssStream, ch chan StreamContent) {
+func (arr *AsyncScenario) asyncRead(stream RssStream, ch chan StreamContent) {
 
-	streamUrl := stream.getUrl(arr.config)
+	streamUrl := stream.getUrl()
 	content := arr.communicator.content(streamUrl)
 	ch <- StreamContent{stream, content}
 

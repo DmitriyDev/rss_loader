@@ -3,23 +3,25 @@ package main
 import (
 	"fmt"
 	"time"
+	"path/filepath"
+	"os"
 )
+
+func init() {
+	fmt.Println("Start process")
+	globalConfig = getConfig()
+}
 
 func main() {
 	start := time.Now()
 
-	fmt.Println("Start process")
-
-	c := getConfig()
-
 	reader := RssReaderStrategy{
-		config:       c,
-		communicator: DZoneCommunicator{c},
+		communicator: DZoneCommunicator{globalConfig},
 	}
 
 	streamContents := reader.contentOfStreams()
 
-	storage := FileStorage{c}
+	storage := FileStorage{globalConfig}
 
 	for _, streamContent := range streamContents {
 		storage.save(streamContent.stream.Code, streamContent.content)
@@ -29,3 +31,12 @@ func main() {
 
 }
 
+func getWorkDir(absPath bool) string {
+
+	if absPath {
+		return filepath.Dir(os.Args[0])
+	}
+
+	return filepath.Dir(".")
+
+}
