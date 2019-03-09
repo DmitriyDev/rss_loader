@@ -1,19 +1,19 @@
 package loader
 
-import (
-	"path/filepath"
-	"os"
-)
+type LoaderProcess interface {
+	setupConfig()
+	process()
+}
 
 type Loader struct {
-	configFile string
+	ConfigFile string
 }
 
-func (l *Loader) setupConfig() {
-	globalConfig = getConfig(l.configFile)
+func (l Loader) SetupConfig() {
+	globalConfig = getConfig(l.ConfigFile)
 }
 
-func (l *Loader) process() {
+func (l Loader) Process() {
 	reader := RssReaderStrategy{
 		communicator: DZoneCommunicator{globalConfig},
 	}
@@ -25,15 +25,5 @@ func (l *Loader) process() {
 	for _, streamContent := range streamContents {
 		storage.save(streamContent.stream.Code, streamContent.content)
 	}
-
-}
-
-func getWorkDir(absPath bool) string {
-
-	if absPath {
-		return filepath.Dir(os.Args[0])
-	}
-
-	return filepath.Dir(".")
 
 }

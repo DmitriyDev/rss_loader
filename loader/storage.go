@@ -35,7 +35,7 @@ func (fs FileStorage) storeFolder() string {
 
 	conf := fs.config
 
-	path := getWorkDir(conf.Abs_path) + PATH_DELIMITER + conf.Store_folder
+	path := filepath.Dir(".") + PATH_DELIMITER + conf.Store_folder
 
 	return path
 }

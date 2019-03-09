@@ -3,6 +3,7 @@ package loader
 import (
 	"io/ioutil"
 	"gopkg.in/yaml.v2"
+	"path/filepath"
 )
 
 type Config struct {
@@ -13,26 +14,18 @@ type Config struct {
 	Streams        map[string]RssStream
 }
 
-
-
 var globalConfig Config
-
-func init()  {
-
-}
 
 func getConfig(configFile string) Config {
 
 	var config Config
 
-	filename := getWorkDir(true) + configFile
+	filename := filepath.Dir(".") + configFile
 
 	yamlFile, err := ioutil.ReadFile(filename)
 
 	if err != nil {
 
-		filename := getWorkDir(false) + configFile
-		yamlFile, err = ioutil.ReadFile(filename)
 		if err != nil {
 			panic(err)
 		}

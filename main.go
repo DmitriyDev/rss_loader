@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"time"
-	"github.com/DmitriyDev/rss_loader/loader"
+	lr "github.com/loader"
 )
 
 const CONFIG_FILE = "/config.yml"
@@ -15,9 +15,9 @@ func init() {
 func main() {
 	start := time.Now()
 
-	l := lr.Loader{}
-	l.setupConfig(CONFIG_FILE)
-	l.process()
+	l := lr.Loader{ConfigFile: CONFIG_FILE, }
+	l.SetupConfig()
+	l.Process()
 
 	fmt.Println(time.Since(start).Seconds())
 
