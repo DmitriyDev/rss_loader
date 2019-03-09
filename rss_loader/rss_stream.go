@@ -1,4 +1,4 @@
-package main
+package rss_loader
 
 type RssStream struct {
 	Name        string

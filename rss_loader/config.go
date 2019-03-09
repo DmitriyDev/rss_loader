@@ -1,4 +1,4 @@
-package main
+package rss_loader
 
 import (
 	"io/ioutil"
@@ -13,7 +13,7 @@ type Config struct {
 	Streams        map[string]RssStream
 }
 
-const CONFIG_FILE = "/config.yml"
+
 
 var globalConfig Config
 
@@ -21,17 +21,17 @@ func init()  {
 
 }
 
-func getConfig() Config {
+func getConfig(configFile string) Config {
 
 	var config Config
 
-	filename := getWorkDir(true) + CONFIG_FILE
+	filename := getWorkDir(true) + configFile
 
 	yamlFile, err := ioutil.ReadFile(filename)
 
 	if err != nil {
 
-		filename := getWorkDir(false) + CONFIG_FILE
+		filename := getWorkDir(false) + configFile
 		yamlFile, err = ioutil.ReadFile(filename)
 		if err != nil {
 			panic(err)

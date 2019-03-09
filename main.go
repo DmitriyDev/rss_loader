@@ -3,40 +3,23 @@ package main
 import (
 	"fmt"
 	"time"
-	"path/filepath"
-	"os"
+	lr "github.com/rss_loader"
 )
+
+const CONFIG_FILE = "/config.yml"
 
 func init() {
 	fmt.Println("Start process")
-	globalConfig = getConfig()
 }
 
 func main() {
 	start := time.Now()
 
-	reader := RssReaderStrategy{
-		communicator: DZoneCommunicator{globalConfig},
-	}
-
-	streamContents := reader.contentOfStreams()
-
-	storage := FileStorage{globalConfig}
-
-	for _, streamContent := range streamContents {
-		storage.save(streamContent.stream.Code, streamContent.content)
-	}
+	l := lr.Loader{}
+	l.setupConfig(CONFIG_FILE)
+	l.process()
 
 	fmt.Println(time.Since(start).Seconds())
 
 }
 
-func getWorkDir(absPath bool) string {
-
-	if absPath {
-		return filepath.Dir(os.Args[0])
-	}
-
-	return filepath.Dir(".")
-
-}
