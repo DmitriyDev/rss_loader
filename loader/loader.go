@@ -1,10 +1,5 @@
 package loader
 
-type LoaderProcess interface {
-	setupConfig()
-	process()
-}
-
 type Loader struct {
 	ConfigFile string
 }
